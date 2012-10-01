@@ -96,7 +96,7 @@ module Google
               link = doc.link(:css => "[rel='http://schemas.google.com/spreadsheets/2006#cellsfeed']")["href"] 
               link2 = doc2.link(:css => "[rel='http://schemas.google.com/spreadsheets/2006#cellsfeed']")["href"] 
               cols = %w{id project_id story_type url estimate current_state description name requested_by created_at updated_at accepted_at labels tasks}
-              stats_cols = ["feature count", "feature points sum", "accepted feature count", "accepted feature points sum", "bug count", "accepted bug count", "chore count"]
+              stats_cols = ["date", "feature count", "feature points sum", "accepted feature count", "accepted feature points sum", "bug count", "accepted bug count", "chore count"]
               
               cell_feed_loop(link, cols, access_token_obj)
               cell_feed_loop(link2, stats_cols, access_token_obj)

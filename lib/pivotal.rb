@@ -2,21 +2,30 @@ module Pivotal
   require 'rubygems'
   require 'net/http'
   require 'uri'
-
+      @@ptoken = ''
+      def get_pivotal_token(username, password)
+        puts username
+        puts password
+          x = `curl -d username=#{username} -d password=#{password} -X POST https://www.pivotaltracker.com/services/v3/tokens/active`
+          doc = Nokogiri::XML(x)
+          
+          
+          puts @@ptoken = doc.at_css("guid").content
+          
+      end
+      
       def projects_link
-        ret = ''
-        token = 'b59b00c7be9e9b3aa20132f85a46de86'
+        puts @@ptoken
         resource_uri = URI.parse("http://www.pivotaltracker.com/services/v3/projects/")
         response = Net::HTTP.start(resource_uri.host, resource_uri.port) do |http|
-          http.get(resource_uri.path, {'X-TrackerToken' => token})
+          http.get(resource_uri.path, {'X-TrackerToken' => @@ptoken})
         end
         return response
       end
       def stories_link(project_id)
-        token = 'b59b00c7be9e9b3aa20132f85a46de86'
         resource_uri = URI.parse("http://www.pivotaltracker.com/services/v3/projects/#{project_id}/stories")
         response = Net::HTTP.start(resource_uri.host, resource_uri.port) do |http|
-          http.get(resource_uri.path, {'X-TrackerToken' => token})
+          http.get(resource_uri.path, {'X-TrackerToken' => @@ptoken})
         end
         return response
       end
@@ -134,6 +143,7 @@ module Pivotal
                   end      
                end
              end
+            stats_data <<  Time.now
             stats_data <<  feature_count
             stats_data <<  feature_points_sum
             stats_data <<  accepted_features_count

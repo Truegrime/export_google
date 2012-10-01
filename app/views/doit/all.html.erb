@@ -1,7 +1,7 @@
 <h1>Doit#all</h1>
 <p>Find me in app/views/doit/all.html.erb</p>
-<%= link_to "dari to!", @link%> <br>
-<%= puts @link.to_s %><br>
-<%= puts params[:code] %><br>
-<%= link_to "dari to!", @link%><br>
-
+<%= form_tag "/get" do  %>
+<%= text_field_tag(:username) %>
+<%= text_field_tag(:password) %>
+<%= submit_tag %>
+<% end %>

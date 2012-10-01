@@ -1,5 +1,6 @@
 Project::Application.routes.draw do
   root :to => 'doit#all'
+  match '/get' => 'doit#get'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
